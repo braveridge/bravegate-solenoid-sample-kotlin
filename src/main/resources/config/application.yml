@@ -1,0 +1,5 @@
+bravegate:
+  api-url: https://api.braveridge.io/
+  authkey-id: your-authkey-id
+  authkey-secret: your-authkey-secret
+  device-id: your-device-id

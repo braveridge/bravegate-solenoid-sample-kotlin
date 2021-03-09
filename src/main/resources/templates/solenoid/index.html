@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<p>Control solenoid</p>
+
+<div>
+  DeviceID : <span id="deviceId" th:text="${deviceId}"></span>
+</div>
+
+<button id="sendState">Get current state</button>
+<button id="sendOn">Send on command</button>
+<button id="sendOff">Send off command</button>
+
+<p>Received message</p>
+<div>
+  Command : <span id="receivedCommandMessage">-</span>
+</div>
+<div>
+  State : <span id="receivedNotifyMessage">-</span>
+</div>
+
+<script type="text/javascript">
+  const deviceId = document.getElementById('deviceId').innerText
+
+  const connection = new WebSocket('ws://localhost:8080/ws/solenoid');
+  connection.onopen = (event) => {
+    console.log('open', event)
+  }
+  connection.onerror = (error) => {
+    console.log('error', error)
+  }
+  connection.onmessage = (event) => {
+    console.log('message', event)
+    const json = JSON.parse(event.data)
+    switch (json.type) {
+      case 'Command':
+        const successText = json.state === 'Success' ? '成功' : '失敗'
+        document.getElementById("receivedCommandMessage").innerText =
+          `${json.device}へのコマンド送信が${successText}しました`
+        break
+      case 'Notify':
+        document.getElementById("receivedNotifyMessage").innerText =
+          `${json.device}の状態は ${json.state} です`
+        break
+      default:
+        break
+    }
+  }
+  connection.onclose = () => {
+    console.log('close')
+  }
+
+  const sendMessage = message => {
+    connection.send(message)
+    console.log('send message', message)
+  }
+  document.getElementById('sendState').onclick = () => {
+    const message = `{"command": "State","device": "${deviceId}"}`
+    sendMessage(message)
+  }
+  document.getElementById('sendOn').onclick = () => {
+    const message = `{"command": "On","device": "${deviceId}"}`
+    sendMessage(message)
+  }
+  document.getElementById('sendOff').onclick = () => {
+    const message = `{"command": "Off","device": "${deviceId}"}`
+    sendMessage(message)
+  }
+
+</script>
+
+</body>
+</html>
