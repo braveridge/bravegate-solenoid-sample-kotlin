@@ -1,0 +1,8 @@
+{
+  "settings": {
+    "url": "https://your.domain/path-to-webhook"
+  },
+  "application_type": "webhook",
+  "group_id": "GRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "name": "my webhook"
+}
