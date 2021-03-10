@@ -1,5 +1,7 @@
 # How to specify BraveGATE webhook URL
 
+ref. [BraveGATE CORE user's guide](https://www.braveridge.com/files/uploads/BraveGATE_CORE_User__039;sGuide.pdf)
+
 ## Prepare
 
 ### Determine your working directory
@@ -78,7 +80,7 @@ curl https://api.braveridge.io/v1/applications -X POST -d @json/post_application
 ```
 
 
-# Receive solenoid state at webhook URL
+# Receive solenoid state
 BraveGATE sends an HTTP POST request with a webhook object the webhook URL specified above.
 
 ## webhook object example

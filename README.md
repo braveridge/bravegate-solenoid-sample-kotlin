@@ -2,6 +2,10 @@
 
 This web app is a sample of remotely controls the solenoid via BraveGATE based on Spring Boot (with Kotlin).
 
+- What is [BraveGATE](https://www.braveridge.com/product/archives/7)
+  - [日本語](https://www.braveridge.com/product/archives/7)
+  - [English](https://www.braveridge.com/en/product/archives/6)
+
 ## Requirements
 - JDK 11
 
